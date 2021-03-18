@@ -3,35 +3,27 @@
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const angle = (degrees = 360) => (Math.PI / 180) * degrees;
-ctx.lineWidth = 10;
-
-ctx.beginPath();
-ctx.moveTo(180, 100);
-ctx.arc(100, 100, 80, angle(), false);
-ctx.strokeStyle = 'blue';
-ctx.stroke();
-
-ctx.beginPath();
-ctx.moveTo(370, 100);
-ctx.arc(285, 100, 80, angle(), false);
-ctx.strokeStyle = 'black';
-ctx.stroke();
-
-ctx.beginPath();
-ctx.moveTo(550, 100);
-ctx.arc(470, 100, 80, angle(), false);
-ctx.strokeStyle = 'red';
-ctx.stroke();
-
-ctx.beginPath();
-ctx.moveTo(270, 190);
-ctx.arc(190, 195, 80, angle(), false);
-ctx.strokeStyle = 'gold';
-ctx.stroke();
-
-ctx.beginPath();
-ctx.moveTo(460, 190);
-ctx.arc(380, 195, 80, angle(), false);
-ctx.strokeStyle = 'green';
-ctx.stroke();
+const color = document.getElementById('color');
+const lineWidth = document.getElementById('line-width');
+color.addEventListener('input', () => ctx.strokeStyle = color.value);
+lineWidth.addEventListener('input', () => {
+  lineWidth.value = lineWidth.value.replace(/\D/, '');
+  if (lineWidth.value > 0 && lineWidth.value <= 10) {
+    ctx.lineWidth = lineWidth.value;
+  } else if (lineWidth.value > 10) {
+    ctx.lineWidth = 10;
+  }
+});
+canvas.addEventListener('mousemove', (event) => {
+  const x = event.offsetX;
+  const y = event.offsetY;
+  const mx = event.movementX;
+  const my = event.movementY;
+  if (event.buttons > 0) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x - mx, y - my);
+    ctx.stroke();
+    ctx.closePath();
+  }
+});

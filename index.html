@@ -5,9 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Canvas</title>
+    <style>
+      * {
+        outline: none;
+      }
+
+      /*По умолчанию цвет бордера чёрный*/
+      #canvas {
+        border: 1px solid
+      }
+    </style>
   </head>
   <body>
     <canvas id="canvas" width="575" height="300"></canvas>
+    <br>
+    <label>Цвет линии <input type="color" id="color"></label>
+    <br><br>
+    <label>Ширина линии <input type="text" id="line-width"></label>
     <script src="script.js"></script>
   </body>
 </html>
